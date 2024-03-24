@@ -20,10 +20,4 @@ public class MainPage {
         paymentByCard.shouldBe(visible);
         return new PaymentCardPage();
     }
-
-//    public PaymentCreditCardPage payByCreditCard() {
-//        creditPaymentButton.click();
-//        paymentByCreditCard.shouldBe(visible);
-//        return new PaymentCreditCardPage();
-//    }
 }

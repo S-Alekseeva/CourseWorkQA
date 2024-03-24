@@ -3,7 +3,6 @@ package ru.netology.page.object.data;
 import lombok.SneakyThrows;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
-import org.junit.jupiter.api.BeforeAll;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -23,17 +22,14 @@ public class SQLHelper {
         );
     }
 
+    @SneakyThrows
     public static String getStatusTransaction() {
         var codeSQL = "SELECT status FROM payment_entity ORDER BY created DESC LIMIT 1";
-        try (var conn = getConn()) {
-            var status = runner.query(conn, codeSQL, new ScalarHandler<String>());
-            return status;
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
-        return null;
+        var conn = getConn();
+        var status = runner.query(conn, codeSQL, new ScalarHandler<String>());
+        return status;
     }
-    @BeforeAll
+
     @SneakyThrows
     public static void cleanDatabase() {
         var connection = getConn();

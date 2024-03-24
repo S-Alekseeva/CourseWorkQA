@@ -1,11 +1,8 @@
-package ru.netology.page.object.test;add
+package ru.netology.page.object.test;
 
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import ru.netology.page.object.data.DataHelper;
 import ru.netology.page.object.data.SQLHelper;
 import ru.netology.page.object.page.MainPage;
@@ -30,8 +27,8 @@ public class PaymentCardPageTest {
         SelenideLogger.removeListener("allure");
     }
 
-    @AfterAll
-    static void teardown() {
+    @AfterEach
+    void teardown() {
         cleanDatabase();
     }
 
@@ -46,13 +43,13 @@ public class PaymentCardPageTest {
         SQLHelper.getStatusTransaction().equals("APPROVED");
     }
 
-    //Issue (Уведомление об успешном платеже)
     @Test
     void shouldDeclinedCardPayment() {
         var mainPage = new MainPage();
         mainPage.payByCard();
         var paymentPage = mainPage.payByCard();
         paymentPage.sendCompletedForm(DataHelper.getDeclinedCardNInfo());
+        paymentPage.unsuccessfulPaymentMessage();
         SQLHelper.getStatusTransaction().equals("DECLINED");
     }
 

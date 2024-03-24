@@ -3,10 +3,10 @@ package ru.netology.page.object.data;
 import com.github.javafaker.Faker;
 import lombok.Value;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Random;
+
+import static java.lang.String.valueOf;
 
 public class DataHelper {
     private DataHelper() {
@@ -39,12 +39,13 @@ public class DataHelper {
         return randomCardNumber;
     }
 
-    public static String generateMonth(int month) {
-        return LocalDate.now().plusMonths(month).format(DateTimeFormatter.ofPattern("MM"));
+    public static String generateMonth() {
+        String[] months = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
+        return months[new Random().nextInt(months.length)];
     }
 
-    public static String generateYear(int year) {
-        return LocalDate.now().plusYears(year).format(DateTimeFormatter.ofPattern("yy"));
+    public static String generateYear() {
+        return valueOf(faker.number().numberBetween(24, 29));
     }
 
     public static String generateOwnerEn() {
@@ -65,10 +66,10 @@ public class DataHelper {
     }
 
     public static CardInfo getRandomCardInfoOwnerEn() {
-        return new CardInfo(generateCardNumber(), generateMonth(1), generateYear(5), generateOwnerEn(), generateCvc());
+        return new CardInfo(generateCardNumber(), generateMonth(), generateYear(), generateOwnerEn(), generateCvc());
     }
 
     public static CardInfo getRandomCardInfoOwnerRu() {
-        return new CardInfo(generateCardNumber(), generateMonth(1), generateYear(5), generateOwnerRu(), generateCvc());
+        return new CardInfo(generateCardNumber(), generateMonth(), generateYear(), generateOwnerRu(), generateCvc());
     }
 }

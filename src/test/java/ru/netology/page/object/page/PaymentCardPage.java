@@ -62,6 +62,10 @@ public class PaymentCardPage {
         $(".notification_status_ok").shouldBe(visible, Duration.ofSeconds(15));
     }
 
+    public void unsuccessfulPaymentMessage() {
+        $(".notification_status_error").shouldBe(visible, Duration.ofSeconds(15));
+    }
+
     public void errorMessageSendRandomCard() {
         $x("(//*[@class='notification__content'])[2]").shouldBe(visible, Duration.ofSeconds(15));
     }
