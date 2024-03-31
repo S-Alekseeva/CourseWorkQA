@@ -40,7 +40,8 @@ public class PaymentCardPageTest {
         var paymentPage = mainPage.payByCard();
         paymentPage.sendCompletedForm(DataHelper.getApprovedCardNInfo());
         paymentPage.successfulPaymentMessage();
-        SQLHelper.getStatusTransaction().equals("APPROVED");
+        var paymentStatus = SQLHelper.getStatusTransaction();
+        Assertions.assertEquals("APPROVED", paymentStatus);
     }
 
     @Test
@@ -50,7 +51,8 @@ public class PaymentCardPageTest {
         var paymentPage = mainPage.payByCard();
         paymentPage.sendCompletedForm(DataHelper.getDeclinedCardNInfo());
         paymentPage.unsuccessfulPaymentMessage();
-        SQLHelper.getStatusTransaction().equals("DECLINED");
+        var paymentStatus = SQLHelper.getStatusTransaction();
+        Assertions.assertEquals("DECLINED", paymentStatus);
     }
 
     //Негативные сценарии
